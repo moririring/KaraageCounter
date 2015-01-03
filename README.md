@@ -1,0 +1,4 @@
+KaraageCounter
+==============
+
+I like Karaage
