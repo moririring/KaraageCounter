@@ -29,5 +29,7 @@ namespace KaraageCounter.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<KaraageCounter.Models.Karaage> Karaages { get; set; }
     }
 }
