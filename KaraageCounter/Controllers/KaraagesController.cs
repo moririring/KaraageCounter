@@ -21,6 +21,7 @@ namespace KaraageCounter.Controllers
         // GET: Karaages
         public ActionResult Index()
         {
+            ViewBag.Count = db.Karaages.Count();
             return View(db.Karaages.ToList());
         }
 
@@ -42,20 +43,58 @@ namespace KaraageCounter.Controllers
         // GET: Karaages/Create
         public ActionResult Create()
         {
+            string url = "http://www.telize.com/geoip/" + Request.UserHostAddress;
 
-            string url = "http://express.heartrails.com/api/json?method=getPrefectures";
+            ViewBag.IpAddress = Request.UserHostAddress;
 
-            using (var res = WebRequest.Create(url).GetResponse())
+            WebClient wc = new WebClient();
+            string html = wc.DownloadString(url);
+
+            if (html.Contains("\"city\""))
             {
-                using (var resStream = res.GetResponseStream())
-                {
-                    var serializer = new DataContractJsonSerializer(typeof(Prefectures));
-                    var prefectures = serializer.ReadObject(resStream) as Prefectures;
-                    ViewBag.Prefecture = prefectures.response.prefecture;
-                }
+                var city = html.Substring(html.IndexOf("\"city\"") + "\"city\"".Length + 2);
+                ViewBag.City = city.Substring(0, city.IndexOf(",") - 1);
+            }
+            if (html.Contains("\"region\""))
+            {
+                var region = html.Substring(html.IndexOf("\"region\"") + "\"region\"".Length + 2);
+                ViewBag.Region = region.Substring(0, region.IndexOf(",") - 1);
+            }
+            if (html.Contains("\"country\""))
+            {
+                var country = html.Substring(html.IndexOf("\"country\"") + "\"country\"".Length + 2);
+                ViewBag.Country = country.Substring(0, country.IndexOf(",") - 1);
             }
 
 
+//            using (var res = WebRequest.Create(url).GetResponse())
+//            {
+//                using (var resStream = res.GetResponseStream())
+//                {
+//                    var serializer = new DataContractJsonSerializer(typeof(Geoip));
+//                    var geoip = serializer.ReadObject(resStream) as Geoip;
+//
+//                    ViewBag.Region = geoip.region;
+//                    ViewBag.City = geoip.city;
+//                    ViewBag.Country = geoip.country;
+//
+//
+//
+//                }
+//            }
+
+            //都道府県
+
+//            string url = "http://express.heartrails.com/api/json?method=getPrefectures";
+//            using (var res = WebRequest.Create(url).GetResponse())
+//            {
+//                using (var resStream = res.GetResponseStream())
+//                {
+//                    var serializer = new DataContractJsonSerializer(typeof(Prefectures));
+//                    var prefectures = serializer.ReadObject(resStream) as Prefectures;
+//                    ViewBag.Prefecture = prefectures.response.prefecture;
+//                }
+//            }
             ViewBag.Count = 0;
             return View();
         }
@@ -69,37 +108,12 @@ namespace KaraageCounter.Controllers
         {
             if (ModelState.IsValid)
             {
-
-//                string ipa = "";
-//                var iphEntry = Dns.GetHostEntry(Dns.GetHostName());
-//                foreach (var ipAddr in iphEntry.AddressList)
-//                {
-//                    if (ipAddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-//                    {
-//                        ipa = ipAddr.ToString();
-//                        break;
-//                    }
-//                }
-//                if (!string.IsNullOrEmpty(ipa))
-//                {
-//                    var client = new WebServiceClient(42, "license_key");
-//                    var response = client.City(ipa);
-//                    Console.WriteLine(response.Country.IsoCode);        // 'US'
-//                    Console.WriteLine(response.Country.Name);           // 'United States'
-//                    Console.WriteLine(response.MostSpecificSubdivision.Name);    // 'Minnesota'
-//                    Console.WriteLine(response.MostSpecificSubdivision.IsoCode); // 'MN'
-//                    Console.WriteLine(response.City.Name); // 'Minneapolis'
-//
-//                }
-
-
                 karaage.CreatedAt = DateTime.Now;
                 db.Karaages.Add(karaage);
                 db.SaveChanges();
                 //return RedirectToAction("Index");
             }
             ViewBag.Count = db.Karaages.Count(x => x.UserID == karaage.UserID);
-
             return View();
         }
 

@@ -182,4 +182,4 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
-Startup.Auth.cs
+AccessKey.cs
