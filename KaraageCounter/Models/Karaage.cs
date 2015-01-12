@@ -12,7 +12,7 @@ namespace KaraageCounter.Models
         public int KaraageID { get; set; }
 
         [Required]
-        public int UserID { get; set; }
+        public string UserName { get; set; }
 
         public DateTime CreatedAt { get; set; }
     }
