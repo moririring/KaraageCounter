@@ -20,6 +20,28 @@ namespace KaraageCounter.Controllers
 
 
 
+//            string url = "http://www.telize.com/geoip/" + Request.UserHostAddress;
+//            ViewBag.IpAddress = Request.UserHostAddress;
+//            WebClient wc = new WebClient();
+//            string html = wc.DownloadString(url);
+//            if (html.Contains("\"city\""))
+//            {
+//                var city = html.Substring(html.IndexOf("\"city\"") + "\"city\"".Length + 2);
+//                ViewBag.City = city.Substring(0, city.IndexOf(",") - 1);
+//            }
+//            if (html.Contains("\"region\""))
+//            {
+//                var region = html.Substring(html.IndexOf("\"region\"") + "\"region\"".Length + 2);
+//                ViewBag.Region = region.Substring(0, region.IndexOf(",") - 1);
+//            }
+//            if (html.Contains("\"country\""))
+//            {
+//                var country = html.Substring(html.IndexOf("\"country\"") + "\"country\"".Length + 2);
+//                ViewBag.Country = country.Substring(0, country.IndexOf(",") - 1);
+//            }
+
+
+
     public class Geoip
     {
         public float longitude { get; set; }

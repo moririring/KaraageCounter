@@ -9,7 +9,9 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using DateTimeExtensions;
 using KaraageCounter.Models;
+using KaraageCounter.Properties;
 using MaxMind.GeoIP2;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -18,6 +20,23 @@ namespace KaraageCounter.Controllers
     public class KaraagesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private static int UnKnownCounter = 0;
+
+        private int GetTodayUserCount(string userName, IEnumerable<Karaage> karaages)
+        {
+            if (userName == Resources.UnknownUserName)
+            {
+                return UnKnownCounter;
+            }
+            else
+            {
+                return karaages
+                    .Where(x => x.CreatedAt.IsToday())
+                    .Count(x => x.UserName == userName);
+            }
+        }
+
+
 
         // GET: Karaages
         public ActionResult Index()
@@ -25,6 +44,9 @@ namespace KaraageCounter.Controllers
             ViewBag.Count = db.Karaages.Count();
             return View(db.Karaages.ToList());
         }
+
+
+       
 
         // GET: Karaages/Details/5
         public ActionResult Details(int? id)
@@ -44,52 +66,50 @@ namespace KaraageCounter.Controllers
         // GET: Karaages/Create
         public ActionResult Create()
         {
-            string url = "http://www.telize.com/geoip/" + Request.UserHostAddress;
-            ViewBag.IpAddress = Request.UserHostAddress;
-            WebClient wc = new WebClient();
-            string html = wc.DownloadString(url);
-
-            if (html.Contains("\"city\""))
-            {
-                var city = html.Substring(html.IndexOf("\"city\"") + "\"city\"".Length + 2);
-                ViewBag.City = city.Substring(0, city.IndexOf(",") - 1);
-            }
-            if (html.Contains("\"region\""))
-            {
-                var region = html.Substring(html.IndexOf("\"region\"") + "\"region\"".Length + 2);
-                ViewBag.Region = region.Substring(0, region.IndexOf(",") - 1);
-            }
-            if (html.Contains("\"country\""))
-            {
-                var country = html.Substring(html.IndexOf("\"country\"") + "\"country\"".Length + 2);
-                ViewBag.Country = country.Substring(0, country.IndexOf(",") - 1);
-            }
-
             Karaage karaage = new Karaage();
+
             var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationSignInManager>();
             if (manager.AuthenticationManager.User.Identity.IsAuthenticated)
             {
                 karaage.UserName = manager.AuthenticationManager.User.Identity.Name;
             }
-            ViewBag.Count = db.Karaages.Count(x => x.UserName == karaage.UserName);
+            else
+            {
+                karaage.UserName = Resources.UnknownUserName;
+            }
+            ViewBag.Count = GetTodayUserCount(karaage.UserName, db.Karaages.ToList());
             return View(karaage);
         }
+
 
         // POST: Karaages/Create
         // 過多ポスティング攻撃を防止するには、バインド先とする特定のプロパティを有効にしてください。
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KaraageID,UserName,CreatedAt")] Karaage karaage)
+        public ActionResult Create([Bind(Include = "UserName,CreatedAt")] Karaage karaage)
         {
             if (ModelState.IsValid)
             {
                 karaage.CreatedAt = DateTime.Now;
                 db.Karaages.Add(karaage);
                 db.SaveChanges();
+
+//                var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+//                if (manager.AuthenticationManager.User.Identity.IsAuthenticated)
+//                {
+//
+//                    ViewBag.Count = db.Karaages.Where(x => x.CreatedAt != null && x.CreatedAt.IsToday()).Count(x => x.UserName == karaage.UserName);
+//                }
+//                else
+//                {
+//                    ViewBag.Count = UnKnownCounter++;
+//                }
+                UnKnownCounter++;
+                ViewBag.Count = GetTodayUserCount(karaage.UserName, db.Karaages.ToList());
+
                 //return RedirectToAction("Index");
             }
-            ViewBag.Count = db.Karaages.Count(x => x.UserName == karaage.UserName);
             return View(karaage);
         }
 
