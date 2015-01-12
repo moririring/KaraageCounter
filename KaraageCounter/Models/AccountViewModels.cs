@@ -65,6 +65,11 @@ namespace KaraageCounter.Models
     public class RegisterViewModel
     {
         [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "ユーザー名")]
+        public string UserName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "電子メール")]
         public string Email { get; set; }
