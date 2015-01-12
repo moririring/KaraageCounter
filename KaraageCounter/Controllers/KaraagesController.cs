@@ -45,9 +45,7 @@ namespace KaraageCounter.Controllers
         public ActionResult Create()
         {
             string url = "http://www.telize.com/geoip/" + Request.UserHostAddress;
-
             ViewBag.IpAddress = Request.UserHostAddress;
-
             WebClient wc = new WebClient();
             string html = wc.DownloadString(url);
 
@@ -67,31 +65,13 @@ namespace KaraageCounter.Controllers
                 ViewBag.Country = country.Substring(0, country.IndexOf(",") - 1);
             }
 
-
-            //using Microsoft.AspNet.Identity
-
             Karaage karaage = new Karaage();
             var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationSignInManager>();
             if (manager.AuthenticationManager.User.Identity.IsAuthenticated)
             {
                 karaage.UserName = manager.AuthenticationManager.User.Identity.Name;
             }
-
-            //都道府県
-
-//            string url = "http://express.heartrails.com/api/json?method=getPrefectures";
-//            using (var res = WebRequest.Create(url).GetResponse())
-//            {
-//                using (var resStream = res.GetResponseStream())
-//                {
-//                    var serializer = new DataContractJsonSerializer(typeof(Prefectures));
-//                    var prefectures = serializer.ReadObject(resStream) as Prefectures;
-//                    ViewBag.Prefecture = prefectures.response.prefecture;
-//                }
-//            }
-
-            ViewBag.Count = 0;
-
+            ViewBag.Count = db.Karaages.Count(x => x.UserName == karaage.UserName);
             return View(karaage);
         }
 

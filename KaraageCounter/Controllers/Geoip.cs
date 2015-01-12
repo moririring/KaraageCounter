@@ -5,6 +5,18 @@ using System.Web;
 
 namespace KaraageCounter.Controllers
 {
+    //都道府県
+
+    //            string url = "http://express.heartrails.com/api/json?method=getPrefectures";
+    //            using (var res = WebRequest.Create(url).GetResponse())
+    //            {
+    //                using (var resStream = res.GetResponseStream())
+    //                {
+    //                    var serializer = new DataContractJsonSerializer(typeof(Prefectures));
+    //                    var prefectures = serializer.ReadObject(resStream) as Prefectures;
+    //                    ViewBag.Prefecture = prefectures.response.prefecture;
+    //                }
+    //            }
 
 
 
