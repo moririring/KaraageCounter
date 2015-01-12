@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using KaraageCounter.Models;
 using MaxMind.GeoIP2;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace KaraageCounter.Controllers
 {
@@ -67,21 +68,14 @@ namespace KaraageCounter.Controllers
             }
 
 
-//            using (var res = WebRequest.Create(url).GetResponse())
-//            {
-//                using (var resStream = res.GetResponseStream())
-//                {
-//                    var serializer = new DataContractJsonSerializer(typeof(Geoip));
-//                    var geoip = serializer.ReadObject(resStream) as Geoip;
-//
-//                    ViewBag.Region = geoip.region;
-//                    ViewBag.City = geoip.city;
-//                    ViewBag.Country = geoip.country;
-//
-//
-//
-//                }
-//            }
+            //using Microsoft.AspNet.Identity
+
+            Karaage karaage = new Karaage();
+            var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+            if (manager.AuthenticationManager.User.Identity.IsAuthenticated)
+            {
+                karaage.UserName = manager.AuthenticationManager.User.Identity.Name;
+            }
 
             //都道府県
 
@@ -95,8 +89,10 @@ namespace KaraageCounter.Controllers
 //                    ViewBag.Prefecture = prefectures.response.prefecture;
 //                }
 //            }
+
             ViewBag.Count = 0;
-            return View();
+
+            return View(karaage);
         }
 
         // POST: Karaages/Create
@@ -104,7 +100,7 @@ namespace KaraageCounter.Controllers
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KaraageID,UserID,CreatedAt")] Karaage karaage)
+        public ActionResult Create([Bind(Include = "KaraageID,UserName,CreatedAt")] Karaage karaage)
         {
             if (ModelState.IsValid)
             {
@@ -113,8 +109,8 @@ namespace KaraageCounter.Controllers
                 db.SaveChanges();
                 //return RedirectToAction("Index");
             }
-            ViewBag.Count = db.Karaages.Count(x => x.UserID == karaage.UserID);
-            return View();
+            ViewBag.Count = db.Karaages.Count(x => x.UserName == karaage.UserName);
+            return View(karaage);
         }
 
         // GET: Karaages/Edit/5

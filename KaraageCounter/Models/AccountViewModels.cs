@@ -48,10 +48,15 @@ namespace KaraageCounter.Models
 
     public class LoginViewModel
     {
+//        [Required]
+//        [Display(Name = "電子メール")]
+//        [EmailAddress]
+//        public string Email { get; set; }
         [Required]
-        [Display(Name = "電子メール")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [DataType(DataType.Text)]
+        [Display(Name = "ユーザー名")]
+        public string UserName { get; set; }
+
 
         [Required]
         [DataType(DataType.Password)]
