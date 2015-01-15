@@ -16,7 +16,7 @@ namespace KaraageCounter.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "からあげカウンターとは";
 
             return View();
         }
