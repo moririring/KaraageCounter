@@ -63,6 +63,7 @@ namespace KaraageCounter.Controllers
 
         //
         // POST: /Account/Login
+        [RequireHttps]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
