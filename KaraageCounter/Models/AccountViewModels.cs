@@ -85,10 +85,10 @@ namespace KaraageCounter.Models
         [Display(Name = "パスワード")]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "パスワードの確認入力")]
-        [Compare("Password", ErrorMessage = "パスワードと確認のパスワードが一致しません。")]
-        public string ConfirmPassword { get; set; }
+//        [DataType(DataType.Password)]
+//        [Display(Name = "パスワードの確認入力")]
+//        [Compare("Password", ErrorMessage = "パスワードと確認のパスワードが一致しません。")]
+//        public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel
