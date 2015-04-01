@@ -17,7 +17,6 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <input type="submit" value="からあげ食べた" class="btn btn-success btn-lg" />
-
                 @Html.HiddenFor(model => model.UserName)
 
                 @*        @Html.DisplayFor(model => model.UserName, new { @class = "control-label col-md-2" })*@
@@ -31,7 +30,7 @@
     </div>
     <div class="col-sm-2">
         ↓食べた数をツイート
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://karaage.click" data-text="今日はからあげを @ViewBag.Count 個食べた！！ - みんなが食べた唐揚げの数を知りたい人は「からあげカウンター」" data-hashtags="KaraageCounter" data-count="none">Tweet</a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://karaage.click" data-text="今日はからあげを @ViewBag.Count 個食べた！！ - みんなが食べた唐揚げの数を知りたい人は「からあげカウンター」" data-hashtags="KaraageCounter" data-count="none">Tweet</a>
         <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
     </div>
 </div>

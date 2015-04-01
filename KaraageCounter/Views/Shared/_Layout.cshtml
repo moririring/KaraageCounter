@@ -18,6 +18,7 @@
         window.appInsights=appInsights;
         appInsights.trackPageView();
     </script>
+    <meta name="description" content="The description of my page" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,7 +29,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("からあげカウンター", "Index", "Karaages", "http", null, null, new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("からあげカウンター", "Index", "Karaages", new { area = "" }, new { @class = "navbar-brand" })
+                @*                @Html.ActionLink("からあげカウンター", "Index", "Karaages", "http", null, null, new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -48,13 +50,13 @@
                     <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>                    
                     
                 </li>
-                <li><div class="fb-like" data-href="http://karaage.click" data-send="false" data-layout="button_count" data-width="130" data-show-faces="false"></div></li>
+                <li><div class="fb-like" data-href="https://karaage.click" data-send="false" data-layout="button_count" data-width="130" data-show-faces="false"></div></li>
                 <li>
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://karaage.click" data-text="みんなが食べた唐揚げの数を知りたい人は「からあげカウンター」" data-lang="jp" data-count="horizontal">Tweet</a>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://karaage.click" data-text="みんなが食べた唐揚げの数を知りたい人は「からあげカウンター」" data-lang="jp" data-count="horizontal">Tweet</a>
                     <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
                 </li>
                 <li>
-                    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><div class="g-plusone" data-size="medium" data-href="http://karaage.click"></div>
+                    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><div class="g-plusone" data-size="medium" data-href="https://karaage.click"></div>
                 </li>
                 <li>
                     &copy; @DateTime.Now.Year - からあげカウンター

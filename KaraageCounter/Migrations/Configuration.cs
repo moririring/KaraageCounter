@@ -9,10 +9,7 @@ namespace KaraageCounter.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
-
-            ContextKey = "KaraageCounter.Models.ApplicationDbContext";
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(KaraageCounter.Models.ApplicationDbContext context)

@@ -164,8 +164,11 @@ namespace KaraageCounter.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "アカウントの確認", "このリンクをクリックすることによってアカウントを確認してください <a href=\"" + callbackUrl + "\">こちら</a>");
 
-                    var u = new UrlHelper(ControllerContext.RequestContext);
-                    return Redirect(u.Action("Index", "Karaages", null, "http"));
+
+                    return RedirectToAction("Index", "Karaages");
+
+//                    var u = new UrlHelper(ControllerContext.RequestContext);
+//                    return Redirect(u.Action("Index", "Karaages", null, "http"));
 
                 }
                 AddErrors(result);
@@ -395,7 +398,7 @@ namespace KaraageCounter.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Karaages");
         }
 
         //
@@ -452,7 +455,7 @@ namespace KaraageCounter.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Karaages");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

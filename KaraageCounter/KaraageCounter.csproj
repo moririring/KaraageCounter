@@ -16,7 +16,7 @@
     <AssemblyName>KaraageCounter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort>44301</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -250,6 +250,10 @@
     <Compile Include="Migrations\201501031933396_Initial.Designer.cs">
       <DependentUpon>201501031933396_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503011553327_AddRequiredAttributeToStudyMeetingOnParticipant.cs" />
+    <Compile Include="Migrations\201503011553327_AddRequiredAttributeToStudyMeetingOnParticipant.Designer.cs">
+      <DependentUpon>201503011553327_AddRequiredAttributeToStudyMeetingOnParticipant.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -272,13 +276,16 @@
     <Content Include="App_Data\illustrain01-karaage02.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Deep_frying_chicken_upper_wing.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ApplicationInsights.config" />
+    <Content Include="ApplicationInsights.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="karaage.pfx" />
     <None Include="Properties\PublishProfiles\KaraageCounter.pubxml" />
     <None Include="Properties\Settings.settings">
@@ -347,6 +354,9 @@
     <EmbeddedResource Include="Migrations\201501031933396_Initial.resx">
       <DependentUpon>201501031933396_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503011553327_AddRequiredAttributeToStudyMeetingOnParticipant.resx">
+      <DependentUpon>201503011553327_AddRequiredAttributeToStudyMeetingOnParticipant.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -383,7 +393,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>18677</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44301/</IISUrl>
+          <IISUrl>https://localhost</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

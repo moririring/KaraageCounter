@@ -52,10 +52,10 @@ namespace KaraageCounter.Models
         [Display(Name = "新しいパスワード")]
         public string NewPassword { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "新しいパスワードの確認入力")]
-        [Compare("NewPassword", ErrorMessage = "新しいパスワードと確認のパスワードが一致しません。")]
-        public string ConfirmPassword { get; set; }
+//        [DataType(DataType.Password)]
+//        [Display(Name = "新しいパスワードの確認入力")]
+//        [Compare("NewPassword", ErrorMessage = "新しいパスワードと確認のパスワードが一致しません。")]
+//        public string ConfirmPassword { get; set; }
     }
 
     public class AddPhoneNumberViewModel
