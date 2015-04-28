@@ -30,10 +30,11 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("からあげカウンター", "Index", "Karaages", new { area = "" }, new { @class = "navbar-brand" })
-                @*                @Html.ActionLink("からあげカウンター", "Index", "Karaages", "http", null, null, new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("ランキング", "Index", "Rankings")</li>
+                    <li>@Html.ActionLink("キリ番", "Index", "TurningPointNumbers")</li>
                     <li>@Html.ActionLink("からあげカウンターとは？", "About", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

@@ -20,33 +20,38 @@ namespace KaraageCounter.Controllers
     public class KaraagesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private static int UnKnownCounter = 0;
+        private Random RandomNumber;
 
-        private int GetTodayUserCount(string userName, IEnumerable<Karaage> karaages)
+        public KaraagesController()
         {
-            if (userName == Resources.UnknownUserName)
-            {
-                return UnKnownCounter;
-            }
-            else
-            {
-                return karaages
-                    .Where(x => x.CreatedAt.IsToday())
-                    .Count(x => x.UserName == userName);
-            }
+            var seed = Environment.TickCount;
+            RandomNumber = new Random(seed++);
+
         }
 
+        private int GetTodayUserCount(string userName, string IpAddress, IEnumerable<Karaage> karaages)
+        {
+            return karaages
+                .Where(x => x.CreatedAt.IsToday())
+                .Count(x => x.UserName == userName && x.IpAddress == IpAddress);
+        }
 
 
         // GET: Karaages
         public ActionResult Index()
         {
-            ViewBag.Count = db.Karaages.Count();
-            return View(db.Karaages.ToList());
+            var karaageList = db.Karaages.ToList();
+
+            ViewBag.Count = karaageList.Count();
+            ViewBag.TodayCount = karaageList.Where(x => x.CreatedAt.IsToday()).Count();
+            ViewBag.YesterdayCount = karaageList.Where(x => x.CreatedAt.IsYesterday()).Count();
+            return View(karaageList);
         }
 
-
-       
+        public ActionResult Ranking()
+        {
+            return View(db.Rankings.ToList());
+        }
 
         // GET: Karaages/Details/5
         public ActionResult Details(int? id)
@@ -77,10 +82,50 @@ namespace KaraageCounter.Controllers
             {
                 karaage.UserName = Resources.UnknownUserName;
             }
-            ViewBag.Count = GetTodayUserCount(karaage.UserName, db.Karaages.ToList());
+            karaage.IpAddress = Request.ServerVariables["REMOTE_ADDR"];
+            //RankingUpdate(karaage.UserName);
+            //TurningPointNumberUpdate(karaage.UserName);
+            ViewBag.Count = GetTodayUserCount(karaage.UserName, karaage.IpAddress, db.Karaages.ToList());
+            ViewBag.Click = false;
             return View(karaage);
         }
 
+
+        public void RankingUpdate(string userName)
+        {
+            if (userName != Resources.UnknownUserName)
+            {
+                var hit = db.Rankings.FirstOrDefault(x => x.UserName == userName);
+                if (hit != null)
+                {
+                    hit.KaraageCount++;
+                }
+                else
+                {
+                    var ranking = new Ranking()
+                    {
+                        UserName = userName,
+                        KaraageCount = db.Karaages.Count(x => x.UserName == userName),
+                    };
+                    db.Rankings.Add(ranking);
+                }
+            }
+        }
+
+        public void TurningPointNumberUpdate(string userName, int count)
+        {
+            var turning = Math.Pow(10, count.ToString().Length - 1);
+            if (count % turning == 0)
+            {
+                var turningPointNumber = new TurningPointNumber()
+                {
+                    UserName = userName,
+                    Number = count,
+                    GetTime = DateTime.Now,
+                };
+                db.TurningPointNumbers.Add(turningPointNumber);
+            }
+        }
 
         // POST: Karaages/Create
         // 過多ポスティング攻撃を防止するには、バインド先とする特定のプロパティを有効にしてください。
@@ -89,26 +134,25 @@ namespace KaraageCounter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserName,CreatedAt")] Karaage karaage)
         {
+            ViewBag.Click = false;
             if (ModelState.IsValid)
             {
+                karaage.RandNumber = RandomNumber.Next(1000);
                 karaage.CreatedAt = DateTime.Now;
+                karaage.IpAddress = Request.ServerVariables["REMOTE_ADDR"];
                 db.Karaages.Add(karaage);
+
+                //SaveChangesするまで反映されない。先に呼ぶと2回呼ぶ必要がある
+                var count = db.Karaages.ToList().Count + 1;
+                RankingUpdate(karaage.UserName);
+                TurningPointNumberUpdate(karaage.UserName, count);
+
                 db.SaveChanges();
 
-//                var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationSignInManager>();
-//                if (manager.AuthenticationManager.User.Identity.IsAuthenticated)
-//                {
-//
-//                    ViewBag.Count = db.Karaages.Where(x => x.CreatedAt != null && x.CreatedAt.IsToday()).Count(x => x.UserName == karaage.UserName);
-//                }
-//                else
-//                {
-//                    ViewBag.Count = UnKnownCounter++;
-//                }
-                UnKnownCounter++;
-                ViewBag.Count = GetTodayUserCount(karaage.UserName, db.Karaages.ToList());
 
-                //return RedirectToAction("Index");
+                ViewBag.Count = GetTodayUserCount(karaage.UserName, karaage.IpAddress, db.Karaages.ToList());
+                ViewBag.Click = true;
+                ViewBag.RandNumber = karaage.RandNumber;
             }
             return View(karaage);
         }

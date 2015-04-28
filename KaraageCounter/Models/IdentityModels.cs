@@ -30,6 +30,8 @@ namespace KaraageCounter.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<KaraageCounter.Models.Karaage> Karaages { get; set; }
+        public DbSet<Karaage> Karaages { get; set; }
+        public DbSet<Ranking> Rankings { get; set; }
+        public DbSet<TurningPointNumber> TurningPointNumbers { get; set; }
     }
 }

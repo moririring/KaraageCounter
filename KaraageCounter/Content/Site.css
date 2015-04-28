@@ -56,3 +56,24 @@ textarea {
 .social-button iframe.twitter-share-button {
     width: 90px !important;
 }
+
+
+#ball {
+    display: block;
+    width: 300px;
+    height: 300px;
+    top: -300px;
+    left: -300px;
+    position: absolute;
+    border: solid 8px #000;
+    border-radius: 50%;
+    background-color: #ffd800;
+    background-image: url("../Content/ClickKaraage.png")
+
+}
+#ball.gold {
+	background-color: #DAA520;
+}
+#ball.silver {
+	background-color: #C0C0C0;
+}

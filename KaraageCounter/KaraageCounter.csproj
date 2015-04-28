@@ -238,6 +238,8 @@
     <Compile Include="Controllers\KaraagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Prefectures.cs" />
+    <Compile Include="Controllers\RankingsController.cs" />
+    <Compile Include="Controllers\TurningPointNumbersController.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -254,11 +256,17 @@
     <Compile Include="Migrations\201503011553327_AddRequiredAttributeToStudyMeetingOnParticipant.Designer.cs">
       <DependentUpon>201503011553327_AddRequiredAttributeToStudyMeetingOnParticipant.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504190843186_Ranking.cs" />
+    <Compile Include="Migrations\201504190843186_Ranking.Designer.cs">
+      <DependentUpon>201504190843186_Ranking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Karaage.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Ranking.cs" />
+    <Compile Include="Models\TurningPointNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -273,7 +281,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\illustrain01-karaage02.png" />
+    <Content Include="Content\ClickKaraage.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Deep_frying_chicken_upper_wing.jpg" />
@@ -309,9 +317,11 @@
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -346,6 +356,15 @@
     <Content Include="Views\Karaages\Details.cshtml" />
     <Content Include="Views\Karaages\Edit.cshtml" />
     <Content Include="Views\Karaages\Index.cshtml" />
+    <Content Include="Views\Karaages\Ranking.cshtml" />
+    <Content Include="Views\Rankings\Details.cshtml" />
+    <Content Include="Views\Rankings\Create.cshtml" />
+    <Content Include="Views\Rankings\Index.cshtml" />
+    <Content Include="Views\TurningPointNumbers\Create.cshtml" />
+    <Content Include="Views\TurningPointNumbers\Delete.cshtml" />
+    <Content Include="Views\TurningPointNumbers\Details.cshtml" />
+    <Content Include="Views\TurningPointNumbers\Edit.cshtml" />
+    <Content Include="Views\TurningPointNumbers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201501031720423_InitialCreate.resx">
@@ -356,6 +375,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503011553327_AddRequiredAttributeToStudyMeetingOnParticipant.resx">
       <DependentUpon>201503011553327_AddRequiredAttributeToStudyMeetingOnParticipant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504190843186_Ranking.resx">
+      <DependentUpon>201504190843186_Ranking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -368,6 +390,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,50 @@
+﻿@model KaraageCounter.Models.Ranking
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ranking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IpAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IpAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KaraageCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KaraageCount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
