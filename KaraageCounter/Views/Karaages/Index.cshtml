@@ -5,11 +5,19 @@
 <br>
 
 <div class="row">
-    <div class="col-lg-2" style="background-color:#b4f2b1">
+    <div class="col-lg-2" style="background-color:#e0ffe0">
+        <div>
+            <ul>
+                <li>@Html.ActionLink("更新履歴", "Index", "KaraageVersions")</li>
+            </ul>
+        </div>
     </div>
         <div class="col-lg-2">
             <div class=" text-center">
                 <p>今日のからあげ総数</p>
+                <p>
+                    <img src="Content/bird16.jpg" height="50">
+                </p>
                 <span class="h2">@ViewBag.TodayCount 個</span>
             </div>
         </div>
@@ -17,7 +25,7 @@
             <div class=" text-center">
                 <p>みんなが食べた唐揚げの数</p>
                 <p>
-                    <img src="Content/bird16.jpg" height="100">
+                    <img src="Content/bird16.jpg" height="200">
                 </p>
                     <span class="h1">@ViewBag.Count 個</span>
                     @using (Html.BeginForm("Create", "Karaages", FormMethod.Get))
@@ -30,6 +38,9 @@
         <div class="col-lg-2">
             <div class=" text-center">
                 <p>昨日のからあげ総数</p>
+                <p>
+                    <img src="Content/bird16.jpg" height="25">
+                </p>
                 <span class="h2">@ViewBag.YesterdayCount 個</span>
             </div>
         </div>

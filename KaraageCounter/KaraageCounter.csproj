@@ -232,6 +232,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\AccessKey.cs" />
+    <Compile Include="Areas\admin\adminAreaRegistration.cs" />
+    <Compile Include="Areas\admin\Controllers\KaraageVersionsController.cs" />
+    <Compile Include="Areas\admin\Models\KaraageVersion.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Geoip.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -281,6 +284,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bird16.jpg" />
     <Content Include="Content\ClickKaraage.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -295,6 +299,14 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="karaage.pfx" />
+    <Content Include="Areas\admin\Views\web.config" />
+    <Content Include="Areas\admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\admin\Views\KaraageVersions\Create.cshtml" />
+    <Content Include="Areas\admin\Views\KaraageVersions\Delete.cshtml" />
+    <Content Include="Areas\admin\Views\KaraageVersions\Details.cshtml" />
+    <Content Include="Areas\admin\Views\KaraageVersions\Edit.cshtml" />
+    <Content Include="Areas\admin\Views\KaraageVersions\Index.cshtml" />
     <None Include="Properties\PublishProfiles\KaraageCounter.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -365,6 +377,7 @@
     <Content Include="Views\TurningPointNumbers\Details.cshtml" />
     <Content Include="Views\TurningPointNumbers\Edit.cshtml" />
     <Content Include="Views\TurningPointNumbers\Index.cshtml" />
+    <Content Include="Views\KaraageVersions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201501031720423_InitialCreate.resx">

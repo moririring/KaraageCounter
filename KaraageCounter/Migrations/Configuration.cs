@@ -11,7 +11,6 @@ namespace KaraageCounter.Migrations
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
-
         }
 
         protected override void Seed(KaraageCounter.Models.ApplicationDbContext context)

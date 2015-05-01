@@ -1,64 +1,88 @@
-﻿@model KaraageCounter.Models.IndexViewModel
-@{
-    ViewBag.Title = "管理";
-}
+﻿@*
+     @model IEnumerable<KaraageCounter.Models.Karaage>
+*@
 
-<h2>@ViewBag.Title.</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>アカウント設定の変更</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>パスワード:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
+@model IEnumerable<KeyValuePair<string,int>>
+
+    @{
+        ViewBag.Title = ViewBag.UserName + "が食べた唐揚げの数";
+    }
+
+    <h2>@ViewBag.Title</h2>
+
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <div>
+
+
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    食べた日
+                </th>
+                <th>
+                    食べた数
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
             {
-                @Html.ActionLink("パスワードの変更", "ChangePassword")
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Key)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                </tr>
             }
-            else
-            {
-                @Html.ActionLink("作成", "SetPassword")
-            }
-            ]
-        </dd>
-@*        <dt>外部ログイン:</dt>*@
-@*        <dd>*@
-@*            @Model.Logins.Count [*@
-@*            @Html.ActionLink("管理", "ManageLogins") ]*@
-@*        </dd>*@
-        @*
-            電話番号を 2 要素認証システムの第 2 認証要素としてお使いいただけます。
-             
-             SMS を使用する 2 要素認証をサポートするようにこの ASP.NET アプリケーションを設定する方法の詳細については、
-                <a href="http://go.microsoft.com/fwlink/?LinkId=403804">こちらの記事</a>をご覧ください。
-             
-             2 要素認証の設定が完了したら、次のブロックのコメントを解除してください。
-        *@
-        @*  
-            <dt>電話番号:</dt>
+        </table>
+
+
+        <hr />
+        <dl>
+            <dt>パスワード:</dt>
             <dd>
-                @(Model.PhoneNumber ?? "なし") [
-                @if (Model.PhoneNumber != null)
-                {
-                    @Html.ActionLink("変更", "AddPhoneNumber")
-                    @: &nbsp;|&nbsp;
-                    @Html.ActionLink("削除", "RemovePhoneNumber")
-                }
-                else
-                {
-                    @Html.ActionLink("追加", "AddPhoneNumber")
-                }
-                ]
+                @Html.ActionLink("パスワードの変更", "ChangePassword")
             </dd>
-        *@
-@*        <dt>2 要素認証:</dt>*@
-@*        <dd>*@
-@*            <p>*@
-@*                構成済みの 2 要素認証プロバイダーはありません。2 要素認証をサポートするようにこの ASP.NET アプリケーションを設定する方法の*@
-@*                詳細については、<a href="http://go.microsoft.com/fwlink/?LinkId=403804">こちらの記事</a>をご覧ください。*@
-@*            </p>*@
+            @*        <dt>外部ログイン:</dt>*@
+            @*        <dd>*@
+            @*            @Model.Logins.Count [*@
+            @*            @Html.ActionLink("管理", "ManageLogins") ]*@
+            @*        </dd>*@
+            @*
+                電話番号を 2 要素認証システムの第 2 認証要素としてお使いいただけます。
+
+                 SMS を使用する 2 要素認証をサポートするようにこの ASP.NET アプリケーションを設定する方法の詳細については、
+                    <a href="http://go.microsoft.com/fwlink/?LinkId=403804">こちらの記事</a>をご覧ください。
+
+                 2 要素認証の設定が完了したら、次のブロックのコメントを解除してください。
+            *@
+            @*
+                <dt>電話番号:</dt>
+                <dd>
+                    @(Model.PhoneNumber ?? "なし") [
+                    @if (Model.PhoneNumber != null)
+                    {
+                        @Html.ActionLink("変更", "AddPhoneNumber")
+                        @: &nbsp;|&nbsp;
+                        @Html.ActionLink("削除", "RemovePhoneNumber")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("追加", "AddPhoneNumber")
+                    }
+                    ]
+                </dd>
+            *@
+            @*        <dt>2 要素認証:</dt>*@
+            @*        <dd>*@
+            @*            <p>*@
+            @*                構成済みの 2 要素認証プロバイダーはありません。2 要素認証をサポートするようにこの ASP.NET アプリケーションを設定する方法の*@
+            @*                詳細については、<a href="http://go.microsoft.com/fwlink/?LinkId=403804">こちらの記事</a>をご覧ください。*@
+            @*            </p>*@
             @*@if (Model.TwoFactor)
                 {
                     using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -79,6 +103,6 @@
                         </text>
                     }
                 }*@
-@*        </dd>*@
-    </dl>
-</div>
+            @*        </dd>*@
+        </dl>
+    </div>

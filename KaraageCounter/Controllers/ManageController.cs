@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using KaraageCounter.Models;
+using System.Collections.Generic;
 
 namespace KaraageCounter.Controllers
 {
@@ -15,6 +16,7 @@ namespace KaraageCounter.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -72,7 +74,24 @@ namespace KaraageCounter.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
-            return View(model);
+            var userName = User.Identity.GetUserName();
+            var dateCounts = new Dictionary<string, int>();
+            foreach (var karaage in db.Karaages.Where(r => r.UserName == userName))
+            {
+                var date = karaage.CreatedAt.ToShortDateString();
+
+                if (dateCounts.ContainsKey(date))
+                {
+                    dateCounts[date]++;
+                }
+                else
+                {
+                    dateCounts.Add(date, 1);
+                }
+            }
+            ViewBag.UserName = userName;
+            return View(dateCounts.OrderByDescending(x => x.Key));
+            //return View(model);
         }
 
         //

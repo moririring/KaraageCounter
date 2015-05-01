@@ -46,6 +46,7 @@ namespace KaraageCounter.Controllers
             ViewBag.TodayCount = karaageList.Where(x => x.CreatedAt.IsToday()).Count();
             ViewBag.YesterdayCount = karaageList.Where(x => x.CreatedAt.IsYesterday()).Count();
             return View(karaageList);
+   
         }
 
         public ActionResult Ranking()
@@ -72,7 +73,6 @@ namespace KaraageCounter.Controllers
         public ActionResult Create()
         {
             Karaage karaage = new Karaage();
-
             var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationSignInManager>();
             if (manager.AuthenticationManager.User.Identity.IsAuthenticated)
             {
@@ -82,6 +82,9 @@ namespace KaraageCounter.Controllers
             {
                 karaage.UserName = Resources.UnknownUserName;
             }
+            
+
+
             karaage.IpAddress = Request.ServerVariables["REMOTE_ADDR"];
             //RankingUpdate(karaage.UserName);
             //TurningPointNumberUpdate(karaage.UserName);

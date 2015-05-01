@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using KaraageCounter.Areas.admin.Models;
 
 namespace KaraageCounter.Models
 {
@@ -33,5 +34,8 @@ namespace KaraageCounter.Models
         public DbSet<Karaage> Karaages { get; set; }
         public DbSet<Ranking> Rankings { get; set; }
         public DbSet<TurningPointNumber> TurningPointNumbers { get; set; }
+
+        public DbSet<KaraageVersion> KaraageVersions { get; set; }
+
     }
 }

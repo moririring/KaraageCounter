@@ -6,7 +6,7 @@
 
 <h2>キリ番</h2>
 
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             ユーザー名
@@ -19,18 +19,19 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GetTime)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GetTime)
+            </td>
+        </tr>
+    }
 
 </table>
